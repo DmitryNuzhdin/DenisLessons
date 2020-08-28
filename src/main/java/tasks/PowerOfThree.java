@@ -19,7 +19,7 @@ public class PowerOfThree {
                 i = i + a % 3;
                 a = a / 3;
                 }
-            return i == 0 & a == 1;
+            return i == 0 && a == 1;
         }
     }
 

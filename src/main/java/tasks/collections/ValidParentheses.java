@@ -1,6 +1,12 @@
 package tasks.collections;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+
+
 public class ValidParentheses {
+
     public static boolean checkValidness(String combination) {
         // довольно классическая задача
         // написать функцию, проверяющую правильность комбинации скобок
@@ -20,7 +26,36 @@ public class ValidParentheses {
 
         // (*) Сделать так, чтобы добавить новый вид скобок можно было максимально просто и понятно.
 
+        if (combination.length() % 2 != 0) {
+            return false;
+        }
+        String[] stringArray = combination.split("");
 
-        return false;
+        LinkedList<String> brackets = new LinkedList<>();
+
+        SymbolOfChain sch = new SymbolOfChain(stringArray[0]);
+
+        if (sch.checkCloseBracket()) {
+            return false;
+        } else {
+            for (int k = 0; k <= combination.length() - 1; k++) {
+                sch.setIncString(stringArray[k]);
+                if (sch.checkOpenBracket()) {
+                    brackets.push(stringArray[k]);
+                    System.out.println(stringArray[k]);
+                } else {
+                    if (sch.checkOppositeBracket(stringArray[k], brackets.getFirst())) {
+                        brackets.pop();
+                    }
+                    else
+                        return false;
+                }
+            }
+        }
+        return brackets.isEmpty();
     }
+
+    /*public static void main(String[] args) {
+        System.out.println(checkValidness(""));
+    }*/
 }

@@ -19,72 +19,50 @@ public class CustomLinkedList<E> implements List<E> {
             this.elem = elmnt;
             this.next = next;
         }
-        public E getElem() {
-            return elem;
-        }
-
-        public Node<E> getNext() {
-            return next;
-        }
-
-        public void setElem(E elem) {
-            this.elem = elem;
-        }
-
-        public void setNext(Node<E> next) {
-            this.next = next;
-        }
     }
 
-    Node<E> firstNode;
-    int size = 0;
-
-    public Node<E> getFirstNode() {
-        return firstNode;
-    }
-
-    public void setFirstNode(Node<E> firstNode) {
-        this.firstNode = firstNode;
-    }
-
+    protected Node<E> zeroNode = null;
+    protected int size = 0;
 
     public CustomLinkedList() {
-        firstNode = new Node<E>(null,null);
     }
 
     @Override
     public int size() {
-        int i = 0;
-        Node<E> iter = new Node<E>();
-        iter = firstNode;
-        while (iter.next != null){
-            firstNode.next = iter;
-            i = i + 1;
-        }
-        return i;
+        return size;
     }
 
     @Override
     public E get(int index) {
-        /*int i = 0;
-        Node<E> search = new Node<E>(null,null,null)
-        while (i < index) {
-            search.
-            firstNode.getNext().getElem()
-        }*/
-        return null;
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+
+        Node<E> answerNode = zeroNode;
+        for(int i = 0; i < index; i++){
+            answerNode = answerNode.next;
+        }
+
+        return answerNode.elem;
     }
 
     @Override
     public boolean add(E e) {
-        Node<E> new_nod = new Node<E>(e,null);
-        firstNode.next = new_nod;
+        Node<E> newNode = new Node<>(e,null);
+        if (size == 0)
+            zeroNode = newNode;
+        else {
+            Node<E> currentNode = zeroNode;
+            for(int i = 0; i < size - 1; i++){
+                currentNode = currentNode.next;
+            }
+            currentNode.next = newNode;
+        }
         size = size + 1;
-        return false;
+        return true;
     }
 
     @Override
     public E remove(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
         return null;
     }
 

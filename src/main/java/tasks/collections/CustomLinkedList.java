@@ -66,16 +66,12 @@ public class CustomLinkedList<E> implements List<E> {
         Node<E> currentNode = zeroNode;
 
         if (index == 0) {
-            currentNode.next.next = null;
-        }
-        else {
+            zeroNode = zeroNode.next;
+        } else {
             for (int i = 0; i < index; i++) {
-                    currentNode = currentNode.next;
-                }
-           if (currentNode.next.next == null) {
-                    currentNode.next = null;
-                } else
-                    currentNode.next = currentNode.next.next;
+                currentNode = currentNode.next;
+            }
+            currentNode.next = currentNode.next.next;
         }
         size--;
         return null;

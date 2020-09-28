@@ -2,6 +2,7 @@ package tasks.Leetcode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.TreeMap;
 
 //Given two strings s and t , write a function to determine if t is an anagram of s.
 public class task242 {
@@ -10,11 +11,11 @@ public class task242 {
             return false;
         }
         else {
-            Map<String, Integer> sMap = new HashMap<>();
-            Map<String, Integer> tMap = new HashMap<>();
+            Map<Character, Integer> sMap = new HashMap<>();
+            Map<Character, Integer> tMap = new HashMap<>();
 
-            String[] sArray = s.split("");
-            String[] tArray = t.split("");
+            char[] sArray = s.toCharArray();
+            char[] tArray = t.toCharArray();
 
             for (int k = 0; k <= s.length() - 1; k++) {
                 sMap.merge(sArray[k], 1, Integer::sum);

@@ -5,29 +5,75 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+
 public class CustomLinkedList<E> implements List<E> {
     // этот класс должен быть реализацией интерфейса List (только методы size, add, get, remove)
     // реализация должна быть в виде связного списка (аналог LinkedList)
     // https://ru.wikipedia.org/wiki/%D0%A1%D0%B2%D1%8F%D0%B7%D0%BD%D1%8B%D0%B9_%D1%81%D0%BF%D0%B8%D1%81%D0%BE%D0%BA
 
+    public class Node<E> {
+        E elem;
+        Node<E> next;
+
+        private Node(E elmnt, Node<E> next) {
+            this.elem = elmnt;
+            this.next = next;
+        }
+    }
+
+    protected Node<E> zeroNode = null;
+    protected int size = 0;
+
+    public CustomLinkedList() {
+    }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public E get(int index) {
-        return null;
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+
+        Node<E> answerNode = zeroNode;
+        for(int i = 0; i < index; i++){
+            answerNode = answerNode.next;
+        }
+
+        return answerNode.elem;
     }
 
     @Override
     public boolean add(E e) {
-        return false;
+        Node<E> newNode = new Node<>(e,null);
+        if (size == 0)
+            zeroNode = newNode;
+        else {
+            Node<E> currentNode = zeroNode;
+            for(int i = 0; i < size - 1; i++){
+                currentNode = currentNode.next;
+            }
+            currentNode.next = newNode;
+        }
+        size = size + 1;
+        return true;
     }
 
     @Override
     public E remove(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        Node<E> currentNode = zeroNode;
+
+        if (index == 0) {
+            zeroNode = zeroNode.next;
+        } else {
+            for (int i = 0; i < index; i++) {
+                currentNode = currentNode.next;
+            }
+            currentNode.next = currentNode.next.next;
+        }
+        size--;
         return null;
     }
 

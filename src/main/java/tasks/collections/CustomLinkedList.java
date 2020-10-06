@@ -63,6 +63,17 @@ public class CustomLinkedList<E> implements List<E> {
     @Override
     public E remove(int index) {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        Node<E> currentNode = zeroNode;
+
+        if (index == 0) {
+            zeroNode = zeroNode.next;
+        } else {
+            for (int i = 0; i < index; i++) {
+                currentNode = currentNode.next;
+            }
+            currentNode.next = currentNode.next.next;
+        }
+        size--;
         return null;
     }
 

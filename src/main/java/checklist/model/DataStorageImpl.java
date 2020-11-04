@@ -4,10 +4,14 @@ import checklist.domain.Task;
 import checklist.domain.TaskUpdate;
 import checklist.domain.User;
 import checklist.domain.UserUpdate;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
+//@Scope(scopeName = "prototype")
 public class DataStorageImpl implements DataStorage {
     @Override
     public Optional<User> getUser(long userId) {

@@ -4,9 +4,11 @@ import checklist.domain.Task;
 import checklist.domain.TaskUpdate;
 import checklist.domain.User;
 import checklist.domain.UserUpdate;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ModelImpl implements Model {
     private final DataStorage dataStorage;
 

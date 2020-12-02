@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Task {
     public final long taskId;
-    public final User user;
+    public final long userId;
     public final String taskName;
     public final String taskDescription;
     public final boolean isComplete;
 
-    public Task(long taskId, User user, String taskName, String taskDescription, boolean isComplete) {
+    public Task(long taskId, long userId, String taskName, String taskDescription, boolean isComplete) {
         this.taskId = taskId;
-        this.user = user;
+        this.userId = userId;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.isComplete = isComplete;
@@ -24,21 +24,21 @@ public class Task {
         Task task = (Task) o;
         return taskId == task.taskId &&
                 isComplete == task.isComplete &&
-                Objects.equals(user, task.user) &&
+                Objects.equals(userId, task.userId) &&
                 Objects.equals(taskName, task.taskName) &&
                 Objects.equals(taskDescription, task.taskDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskId, user, taskName, taskDescription, isComplete);
+        return Objects.hash(taskId, userId, taskName, taskDescription, isComplete);
     }
 
     @Override
     public String toString() {
         return "Task{" +
                 "taskId=" + taskId +
-                ", user=" + user +
+                ", user=" + userId +
                 ", taskName='" + taskName + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", isComplete=" + isComplete +

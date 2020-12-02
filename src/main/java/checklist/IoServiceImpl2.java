@@ -3,7 +3,6 @@ package checklist;
 import checklist.model.Model;
 import org.springframework.stereotype.Component;
 
-@Component
 public class IoServiceImpl2 implements IoService {
     private final Model model;
 

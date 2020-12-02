@@ -7,6 +7,8 @@ import checklist.domain.UserUpdate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class ModelImpl implements Model {
@@ -15,29 +17,47 @@ public class ModelImpl implements Model {
     public ModelImpl(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
-
+    /* 18/11/2020 */
     @Override
     public User createUser(UserUpdate userUpdate) throws UserExistsException {
-        return null;
+        if (dataStorage.getAllUsers().stream().anyMatch(user -> Objects.equals(user.userName,userUpdate.userName)))
+        {
+            throw new UserExistsException();
+        }
+        return dataStorage.createUser(userUpdate);
     }
-
+    /* 18/11/2020 */
     @Override
-    public User getUser(long userId) throws UserNotFoundException {
-        return null;
+    public Optional<User> getUser(long userId) throws UserNotFoundException {
+        if (dataStorage.getUser(userId).isPresent()) {
+            return dataStorage.getUser(userId);
+        }
+        throw new UserNotFoundException();
     }
 
+    /* 18/11/2020 */
     @Override
     public Task createTask(long userId, TaskUpdate taskUpdate) throws UserNotFoundException {
-        return null;
+        if (dataStorage.getUser(userId).isPresent()) {
+            dataStorage.createTask(userId, taskUpdate);
+        }
+        throw new UserNotFoundException();
+
     }
 
     @Override
-    public Task updateTask(long userId, long taskId, TaskUpdate taskUpdate) throws TaskNotFoundException, UserNotFoundException {
-        return null;
+    public Task updateTask(long taskId, TaskUpdate taskUpdate) throws TaskNotFoundException {
+        if (dataStorage.getTask(taskId).isPresent()) {
+            return dataStorage.updateTask(taskId, taskUpdate);
+        }
+        throw new TaskNotFoundException();
     }
 
     @Override
     public List<Task> getAllTasksOfUser(long userId, boolean onlyOpened) throws UserNotFoundException {
-        return null;
+        if (dataStorage.getUser(userId).isPresent()) {
+            return dataStorage.getAllTasksOfUser(userId, onlyOpened);
+        }
+        throw new UserNotFoundException();
     }
 }
